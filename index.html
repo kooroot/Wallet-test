@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gauss Wallet</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>100% 🔋</span>
+        </div>
+
+        <!-- Splash Screen -->
+        <div class="splash-screen">
+            <!-- Background Effects -->
+            <div class="bg-circle circle-1"></div>
+            <div class="bg-circle circle-2"></div>
+
+            <!-- Logo -->
+            <div class="logo-section">
+                <div class="logo">
+                    <div class="logo-bar"></div>
+                    <div class="logo-text">GAUSS</div>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading">
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="bottom-section">
+                <button class="import-button" onclick="goToImport()">
+                    Import wallet
+                </button>
+                <a href="#" class="create-link" onclick="goToCreate()">
+                    Create new wallet →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

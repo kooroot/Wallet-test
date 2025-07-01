@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Import Wallet - Gauss</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>100% 🔋</span>
+        </div>
+
+        <!-- Import Container -->
+        <div class="import-container">
+            <!-- Back Button -->
+            <button class="back-button" onclick="goBack()">←</button>
+
+            <!-- Title -->
+            <h1 class="import-title">Import Wallet</h1>
+
+            <!-- Import Options -->
+            <div class="import-options">
+                <button class="import-option active" data-type="seed">
+                    Seed Phrase
+                </button>
+                <button class="import-option" data-type="private">
+                    Private Key
+                </button>
+                <button class="import-option" data-type="json">
+                    JSON File
+                </button>
+            </div>
+
+            <!-- Import Forms -->
+            <!-- Seed Phrase Form -->
+            <form class="import-form" id="seedForm" style="display: flex;">
+                <div class="form-group">
+                    <label class="form-label">Seed Phrase (12 or 24 words)</label>
+                    <textarea 
+                        class="form-textarea" 
+                        placeholder="Enter your seed phrase words separated by spaces"
+                        rows="4"
+                    ></textarea>
+                </div>
+                <button type="submit" class="submit-button">Import Wallet</button>
+            </form>
+
+            <!-- Private Key Form -->
+            <form class="import-form" id="privateForm" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Private Key</label>
+                    <input 
+                        type="password" 
+                        class="form-input" 
+                        placeholder="Enter your private key"
+                    >
+                </div>
+                <button type="submit" class="submit-button">Import Wallet</button>
+            </form>
+
+            <!-- JSON File Form -->
+            <form class="import-form" id="jsonForm" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Keystore JSON File</label>
+                    <input 
+                        type="file" 
+                        class="form-input" 
+                        accept=".json"
+                        style="padding: 8px;"
+                    >
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input 
+                        type="password" 
+                        class="form-input" 
+                        placeholder="Enter keystore password"
+                    >
+                </div>
+                <button type="submit" class="submit-button">Import Wallet</button>
+            </form>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // Import page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const importOptions = document.querySelectorAll('.import-option');
+            const seedForm = document.getElementById('seedForm');
+            const privateForm = document.getElementById('privateForm');
+            const jsonForm = document.getElementById('jsonForm');
+            
+            const forms = {
+                'seed': seedForm,
+                'private': privateForm,
+                'json': jsonForm
+            };
+            
+            // Handle import option clicks
+            importOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Update active state
+                    importOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding form
+                    const type = this.getAttribute('data-type');
+                    Object.values(forms).forEach(form => form.style.display = 'none');
+                    forms[type].style.display = 'flex';
+                });
+            });
+            
+            // Handle form submissions
+            seedForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const seedPhrase = this.querySelector('textarea').value.trim();
+                
+                if (!validateSeedPhrase(seedPhrase)) {
+                    alert('Please enter a valid seed phrase (12 or 24 words)');
+                    return;
+                }
+                
+                importWallet('seed', seedPhrase);
+            });
+            
+            privateForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const privateKey = this.querySelector('input').value.trim();
+                
+                if (!validatePrivateKey(privateKey)) {
+                    alert('Please enter a valid private key');
+                    return;
+                }
+                
+                importWallet('private', privateKey);
+            });
+            
+            jsonForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const fileInput = this.querySelector('input[type="file"]');
+                const password = this.querySelector('input[type="password"]').value;
+                
+                if (!fileInput.files.length) {
+                    alert('Please select a JSON keystore file');
+                    return;
+                }
+                
+                if (!password) {
+                    alert('Please enter the keystore password');
+                    return;
+                }
+                
+                // Read file and import
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const keystore = JSON.parse(event.target.result);
+                        importWallet('json', { keystore, password });
+                    } catch (error) {
+                        alert('Invalid JSON file');
+                    }
+                };
+                reader.readAsText(fileInput.files[0]);
+            });
+        });
+    </script>
+</body>
+</html>

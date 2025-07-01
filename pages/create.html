@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Create Wallet - Gauss</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>100% 🔋</span>
+        </div>
+
+        <!-- Create Container -->
+        <div class="import-container">
+            <!-- Back Button -->
+            <button class="back-button" onclick="goBack()">←</button>
+
+            <!-- Title -->
+            <h1 class="import-title">Create New Wallet</h1>
+
+            <!-- Create Steps -->
+            <div style="margin-bottom: 32px;">
+                <p style="color: #666; margin-bottom: 16px;">
+                    Creating a new wallet will generate a 12-word seed phrase.
+                </p>
+                <p style="color: #666;">
+                    This seed phrase is the only way to recover your wallet, so please keep it safe.
+                </p>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div style="background: #1A1A1A; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                    <input type="checkbox" id="termsCheck" style="margin-top: 4px;">
+                    <span style="font-size: 14px; line-height: 1.5;">
+                        I understand that I must keep my seed phrase safe and that I cannot recover my wallet if it is lost.
+                    </span>
+                </label>
+            </div>
+
+            <!-- Create Button -->
+            <button class="submit-button" id="createButton" disabled onclick="createNewWallet()">
+                Create Wallet
+            </button>
+
+            <!-- Seed Phrase Display (Initially Hidden) -->
+            <div id="seedPhraseDisplay" style="display: none; margin-top: 32px;">
+                <h2 style="font-size: 20px; margin-bottom: 16px;">Seed Phrase</h2>
+                <div style="background: #1A1A1A; padding: 24px; border-radius: 8px; margin-bottom: 24px;">
+                    <div id="seedWords" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                        <!-- Seed words will be populated here -->
+                    </div>
+                </div>
+                
+                <div style="background: #FF4444; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                    <p style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">⚠️ Warning</p>
+                    <p style="font-size: 14px;">
+                        Never share this seed phrase with anyone. 
+                        Write it down on paper and store it in a safe place.
+                    </p>
+                </div>
+                
+                <button class="submit-button" onclick="confirmSeedPhrase()">
+                    I have safely saved my seed phrase
+                </button>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div class="loading-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // Create page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const termsCheck = document.getElementById('termsCheck');
+            const createButton = document.getElementById('createButton');
+            
+            // Enable/disable create button based on checkbox
+            termsCheck.addEventListener('change', function() {
+                createButton.disabled = !this.checked;
+            });
+        });
+        
+        // Mock seed phrase words
+        const mockWords = [
+            'abandon', 'ability', 'able', 'about', 'above', 'absent',
+            'absorb', 'abstract', 'absurd', 'abuse', 'access', 'accident'
+        ];
+        
+        function createNewWallet() {
+            const loading = document.getElementById('loading');
+            const seedPhraseDisplay = document.getElementById('seedPhraseDisplay');
+            const seedWords = document.getElementById('seedWords');
+            
+            // Show loading
+            loading.style.display = 'block';
+            
+            // Simulate wallet creation
+            setTimeout(() => {
+                // Hide loading
+                loading.style.display = 'none';
+                
+                // Display seed words
+                seedWords.innerHTML = '';
+                mockWords.forEach((word, index) => {
+                    const wordElement = document.createElement('div');
+                    wordElement.style.cssText = 'background: #0B0B0D; padding: 8px 12px; border-radius: 4px; display: flex; align-items: center; gap: 8px;';
+                    wordElement.innerHTML = `
+                        <span style="color: #666; font-size: 12px;">${index + 1}.</span>
+                        <span>${word}</span>
+                    `;
+                    seedWords.appendChild(wordElement);
+                });
+                
+                // Show seed phrase display
+                seedPhraseDisplay.style.display = 'block';
+                
+                // Hide initial content
+                document.querySelector('.import-title').style.display = 'none';
+                document.querySelector('div[style*="margin-bottom: 32px"]').style.display = 'none';
+                document.querySelector('div[style*="background: #1A1A1A"]').style.display = 'none';
+                document.getElementById('createButton').style.display = 'none';
+            }, 2000);
+        }
+        
+        function confirmSeedPhrase() {
+            const loading = document.getElementById('loading');
+            
+            // Show loading
+            loading.style.display = 'block';
+            
+            // Save wallet and navigate to main
+            setTimeout(() => {
+                // Store wallet info (in real app, this would be encrypted)
+                localStorage.setItem('walletAddress', '0x' + Math.random().toString(16).substr(2, 40));
+                localStorage.setItem('walletType', 'new');
+                localStorage.setItem('seedPhrase', mockWords.join(' ')); // NEVER do this in production!
+                
+                // Navigate to main page
+                window.location.href = 'main.html';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
