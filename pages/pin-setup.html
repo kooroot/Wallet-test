@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gauss Wallet - Set Password</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>100% 🔋</span>
+        </div>
+
+        <!-- Password Setup Screen -->
+        <div class="password-setup-container">
+            <button class="back-button" onclick="goBack()">←</button>
+            
+            <div class="password-setup-header">
+                <h1 class="password-setup-title">[ SECURE YOUR WALLET ]</h1>
+                <p class="password-setup-subtitle" id="password-subtitle">CREATE A PASSWORD FOR YOUR WALLET</p>
+            </div>
+
+            <!-- Step 1: Set Password -->
+            <div id="set-password-step" class="password-step active">
+                <form onsubmit="handleSetPassword(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="password">NEW PASSWORD</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                class="form-input password-field" 
+                                placeholder="Enter your password"
+                                required
+                                autocomplete="new-password"
+                            />
+                            <button type="button" class="toggle-password" onclick="togglePassword('password')">
+                                <span id="password-toggle-icon">👁</span>
+                            </button>
+                        </div>
+                        <span class="input-border"></span>
+                    </div>
+                    
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strength-fill"></div>
+                        </div>
+                        <span class="strength-text" id="strength-text"></span>
+                    </div>
+                    
+                    <div class="password-requirements">
+                        <p class="requirement" id="req-length">
+                            <span class="req-icon">○</span> At least 4 characters
+                        </p>
+                    </div>
+                    
+                    <button type="submit" class="continue-button" id="password-continue-btn" disabled>
+                        [ SET PASSWORD ]
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 2: Confirm Password -->
+            <div id="confirm-password-step" class="password-step">
+                <form onsubmit="handleConfirmPassword(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="confirm-password">CONFIRM PASSWORD</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="confirm-password" 
+                                class="form-input password-field" 
+                                placeholder="Re-enter your password"
+                                required
+                                autocomplete="new-password"
+                            />
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirm-password')">
+                                <span id="confirm-password-toggle-icon">👁</span>
+                            </button>
+                        </div>
+                        <span class="input-border"></span>
+                    </div>
+                    
+                    <div class="password-match-info">
+                        <p id="match-info-text"></p>
+                    </div>
+                    
+                    <button type="submit" class="continue-button" id="confirm-continue-btn" disabled>
+                        [ CONFIRM & CONTINUE ]
+                    </button>
+                </form>
+            </div>
+
+            <div class="security-note">
+                <span class="security-icon">🔐</span>
+                <p>YOUR PASSWORD IS ENCRYPTED AND STORED LOCALLY</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/password-setup.js"></script>
+</body>
+</html>

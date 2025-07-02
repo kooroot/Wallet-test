@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gauss Wallet - Email Authentication</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>100% 🔋</span>
+        </div>
+
+        <!-- Email Input Screen -->
+        <div class="email-input-container">
+            <button class="back-button" onclick="goBack()">←</button>
+            
+            <div class="email-input-header">
+                <h1 class="email-input-title">[ EMAIL AUTHENTICATION ]</h1>
+                <p class="email-input-subtitle" id="subtitle">ENTER YOUR EMAIL ADDRESS TO CREATE OR ACCESS YOUR WALLET</p>
+            </div>
+
+            <!-- Step 1: Email Input -->
+            <div id="email-step" class="verification-step active">
+                <form onsubmit="handleEmailInput(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="email">EMAIL ADDRESS</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-input email-field" 
+                            placeholder="user@example.com"
+                            required
+                            autocomplete="email"
+                            autofocus
+                        />
+                        <span class="input-border"></span>
+                    </div>
+                    
+                    <button type="submit" class="continue-button" id="email-continue-btn">
+                        [ SEND VERIFICATION CODE ]
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 2: Code Input -->
+            <div id="code-step" class="verification-step">
+                <form onsubmit="handleCodeInput(event)">
+                    <div class="email-display">
+                        <span class="email-label">SENDING CODE TO:</span>
+                        <span class="email-value" id="email-display"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="verification-code">VERIFICATION CODE</label>
+                        <input 
+                            type="text" 
+                            id="verification-code" 
+                            class="form-input verification-field" 
+                            placeholder="000000"
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                            autocomplete="off"
+                        />
+                        <span class="input-border"></span>
+                    </div>
+                    
+                    <div class="form-info">
+                        <p id="code-info">CHECK YOUR EMAIL FOR THE 6-DIGIT CODE</p>
+                    </div>
+                    
+                    <button type="submit" class="continue-button" id="code-verify-btn">
+                        [ VERIFY & CONTINUE ]
+                    </button>
+                    
+                    <div class="resend-section">
+                        <button type="button" class="resend-link" id="resend-btn" onclick="resendCode()" disabled>
+                            RESEND CODE
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="security-note">
+                <span class="security-icon">🔒</span>
+                <p>YOUR EMAIL IS ENCRYPTED AND USED ONLY FOR WALLET RECOVERY</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/email-auth.js"></script>
+</body>
+</html>

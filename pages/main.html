@@ -9,45 +9,151 @@
 </head>
 <body>
     <div class="mobile-container">
-        <!-- Header with Dropdowns -->
+        <!-- Header -->
         <div class="header">
-            <!-- Account Dropdown -->
-            <div class="dropdown" id="accountDropdown">
-                <button class="dropdown-toggle" onclick="toggleDropdown('accountDropdown')">
-                    Account 1
-                </button>
-                <div class="dropdown-menu">
-                    <div class="dropdown-section">Current Account</div>
-                    <div class="dropdown-item">
-                        <div>Account 1</div>
-                        <small style="color: #666;">0x1234...5678</small>
-                    </div>
-                    <div class="dropdown-section">Switch Account</div>
-                    <div class="dropdown-item">Account 2</div>
-                    <div class="dropdown-item">Account 3</div>
-                    <div class="dropdown-section">Account Management</div>
-                    <div class="dropdown-item">+ Create New Account</div>
-                    <div class="dropdown-item">Import Wallet</div>
-                    <div class="dropdown-item">Connect Hardware Wallet</div>
-                </div>
+            <button class="menu-btn" onclick="openDrawer()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="header-title">
+                <div class="logo-bar"></div>
+                <span>GAUSS</span>
             </div>
-
-            <!-- Network Dropdown -->
-            <div class="dropdown" id="networkDropdown">
-                <button class="dropdown-toggle" onclick="toggleDropdown('networkDropdown')">
-                    Ethereum
+            <div class="header-actions">
+                <button class="scan-btn" onclick="openScanner()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 7V3H7M13 3H17V7M17 13V17H13M7 17H3V13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </button>
-                <div class="dropdown-menu">
-                    <div class="dropdown-section">Networks</div>
-                    <div class="dropdown-item">
-                        <div>Ethereum</div>
-                        <small style="color: #4A90E2;">● Connected</small>
+            </div>
+        </div>
+
+        <!-- Side Drawer -->
+        <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+        <div class="drawer" id="drawer">
+            <div class="drawer-header">
+                <div class="drawer-logo">
+                    <div class="logo-bar"></div>
+                    <span>GAUSS</span>
+                </div>
+                <button class="close-drawer" onclick="closeDrawer()">×</button>
+            </div>
+            
+            <div class="drawer-content">
+                <!-- Account Section -->
+                <div class="drawer-section">
+                    <div class="drawer-section-header" onclick="toggleSection('account')">
+                        <h3 class="drawer-section-title">Account</h3>
+                        <span class="drawer-arrow" id="account-arrow">▼</span>
                     </div>
-                    <div class="dropdown-item">Polygon</div>
-                    <div class="dropdown-item">BSC</div>
-                    <div class="dropdown-item">Arbitrum</div>
-                    <div class="dropdown-section">Custom Networks</div>
-                    <div class="dropdown-item">+ Add RPC</div>
+                    <div class="drawer-section-content" id="account-content">
+                        <div class="account-selector">
+                            <div class="current-account active">
+                                <div class="account-info">
+                                    <div class="account-avatar">1</div>
+                                    <div class="account-details">
+                                        <div class="account-name">Account 1</div>
+                                        <div class="account-address">0x1234...5678</div>
+                                    </div>
+                                </div>
+                                <div class="account-balance">2.5 ETH</div>
+                            </div>
+                            <div class="account-list">
+                                <div class="account-item">
+                                    <div class="account-info">
+                                        <div class="account-avatar">2</div>
+                                        <div class="account-details">
+                                            <div class="account-name">Account 2</div>
+                                            <div class="account-address">0x8765...4321</div>
+                                        </div>
+                                    </div>
+                                    <div class="account-balance">1.2 ETH</div>
+                                </div>
+                                <div class="account-item">
+                                    <div class="account-info">
+                                        <div class="account-avatar">3</div>
+                                        <div class="account-details">
+                                            <div class="account-name">Account 3</div>
+                                            <div class="account-address">0x9876...1234</div>
+                                        </div>
+                                    </div>
+                                    <div class="account-balance">0.5 ETH</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="drawer-actions">
+                            <button class="drawer-action-btn">
+                                <span>+</span> CREATE NEW ACCOUNT
+                            </button>
+                            <button class="drawer-action-btn">
+                                <span>↓</span> IMPORT WALLET
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Network Section -->
+                <div class="drawer-section">
+                    <div class="drawer-section-header" onclick="toggleSection('network')">
+                        <h3 class="drawer-section-title">Network</h3>
+                        <span class="drawer-arrow" id="network-arrow">▼</span>
+                    </div>
+                    <div class="drawer-section-content" id="network-content">
+                        <div class="network-list">
+                            <div class="network-item active">
+                                <div class="network-icon" style="background: #627EEA;">ETH</div>
+                                <span>Ethereum</span>
+                                <div class="network-status">● Connected</div>
+                            </div>
+                            <div class="network-item">
+                                <div class="network-icon" style="background: #8247E5;">MATIC</div>
+                                <span>Polygon</span>
+                            </div>
+                            <div class="network-item">
+                                <div class="network-icon" style="background: #F0B90B;">BSC</div>
+                                <span>BSC</span>
+                            </div>
+                            <div class="network-item">
+                                <div class="network-icon" style="background: #2D374B;">ARB</div>
+                                <span>Arbitrum</span>
+                            </div>
+                        </div>
+                        <button class="drawer-action-btn">
+                            <span>+</span> ADD CUSTOM RPC
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Settings Section -->
+                <div class="drawer-section">
+                    <div class="drawer-section-header" onclick="toggleSection('settings')">
+                        <h3 class="drawer-section-title">Settings</h3>
+                        <span class="drawer-arrow" id="settings-arrow">▶</span>
+                    </div>
+                    <div class="drawer-section-content collapsed" id="settings-content">
+                        <div class="settings-list">
+                            <button class="settings-menu-item" onclick="openSettings()">
+                                <span>⚙</span> General Settings
+                            </button>
+                            <button class="settings-menu-item">
+                                <span>🔒</span> Security
+                            </button>
+                            <button class="settings-menu-item">
+                                <span>🔧</span> Advanced
+                            </button>
+                            <button class="settings-menu-item">
+                                <span>ℹ️</span> About
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Link -->
+                <div class="drawer-footer">
+                    <button class="drawer-settings" onclick="openSettings()">
+                        <span>⚙</span> Settings
+                    </button>
                 </div>
             </div>
         </div>
@@ -56,7 +162,7 @@
         <div class="main-content">
             <!-- Balance Section -->
             <div class="balance-section">
-                <div class="balance-label">Total Balance</div>
+                <div class="balance-label">[TOTAL BALANCE]</div>
                 <div class="balance-amount">$12,345.67</div>
                 <div class="balance-usd">≈ ₩16,549,200</div>
             </div>
@@ -65,19 +171,19 @@
             <div class="action-buttons">
                 <button class="action-btn">
                     <div class="action-icon">↑</div>
-                    Send
+                    SEND
                 </button>
                 <button class="action-btn">
                     <div class="action-icon">↓</div>
-                    Receive
+                    RECEIVE
                 </button>
                 <button class="action-btn">
                     <div class="action-icon">⇄</div>
-                    Swap
+                    SWAP
                 </button>
                 <button class="action-btn">
                     <div class="action-icon">$</div>
-                    Buy
+                    BUY
                 </button>
             </div>
 
@@ -130,9 +236,9 @@
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <button class="nav-item active">Wallet</button>
-            <button class="nav-item">DApp</button>
-            <button class="nav-item">Activity</button>
+            <button class="nav-item active">WALLET</button>
+            <button class="nav-item">DAPP</button>
+            <button class="nav-item">ACTIVITY</button>
             <button class="nav-item">NFT</button>
         </div>
 

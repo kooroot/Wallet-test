@@ -31,12 +31,7 @@ function initializeApp() {
 
 // Splash Page Functions
 function initSplashPage() {
-    setTimeout(() => {
-        const loading = document.getElementById('loading');
-        if (loading) {
-            loading.style.display = 'block';
-        }
-    }, 500);
+    // Don't show loading on initial page load
 }
 
 function goToImport() {
@@ -55,37 +50,126 @@ function goToCreate() {
 
 // Main Page Functions
 function initMainPage() {
-    // Initialize dropdowns
-    document.addEventListener('click', handleDropdownClick);
+    // Initialize drawer
+    initDrawer();
+    
+    // Initialize drawer sections (dropdown functionality)
+    initDrawerSections();
     
     // Initialize settings sheet
     initSettingsSheet();
     
     // Initialize bottom navigation
     initBottomNav();
+    
+    // Initialize account and network switching
+    initAccountSwitching();
+    initNetworkSwitching();
 }
 
-function toggleDropdown(dropdownId) {
-    const dropdown = document.getElementById(dropdownId);
-    const allDropdowns = document.querySelectorAll('.dropdown');
+// Drawer Functions
+function initDrawer() {
+    const drawer = document.getElementById('drawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
     
-    // Close all other dropdowns
-    allDropdowns.forEach(d => {
-        if (d.id !== dropdownId) {
-            d.classList.remove('active');
+    // Handle drawer swipe gestures
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    
+    drawer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+    
+    drawer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+        const deltaX = currentX - startX;
+        
+        if (deltaX < 0) {
+            drawer.style.transform = `translateX(${deltaX}px)`;
         }
     });
     
-    // Toggle current dropdown
-    dropdown.classList.toggle('active');
+    drawer.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        const deltaX = currentX - startX;
+        
+        if (deltaX < -100) {
+            closeDrawer();
+        } else {
+            drawer.style.transform = '';
+        }
+    });
 }
 
-function handleDropdownClick(event) {
-    if (!event.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown').forEach(d => {
-            d.classList.remove('active');
+function openDrawer() {
+    const drawer = document.getElementById('drawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    
+    drawer.classList.add('active');
+    drawerOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+    const drawer = document.getElementById('drawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    
+    drawer.classList.remove('active');
+    drawerOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    drawer.style.transform = '';
+}
+
+// Account Switching
+function initAccountSwitching() {
+    const accountItems = document.querySelectorAll('.account-item');
+    const currentAccount = document.querySelector('.current-account');
+    
+    accountItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Update current account
+            const accountName = this.querySelector('.account-name').textContent;
+            const accountAddress = this.querySelector('.account-address').textContent;
+            const accountBalance = this.querySelector('.account-balance').textContent;
+            
+            // Update UI
+            currentAccount.querySelector('.account-name').textContent = accountName;
+            currentAccount.querySelector('.account-address').textContent = accountAddress;
+            currentAccount.querySelector('.account-balance').textContent = accountBalance;
+            
+            // Close drawer after selection
+            setTimeout(() => closeDrawer(), 300);
         });
-    }
+    });
+}
+
+// Network Switching
+function initNetworkSwitching() {
+    const networkItems = document.querySelectorAll('.network-item');
+    
+    networkItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove active class from all networks
+            networkItems.forEach(net => net.classList.remove('active'));
+            
+            // Add active class to selected network
+            this.classList.add('active');
+            
+            // Close drawer after selection
+            setTimeout(() => closeDrawer(), 300);
+        });
+    });
+}
+
+// Scanner Function
+function openScanner() {
+    console.log('Opening QR Scanner');
+    // Add QR scanner functionality here
+    alert('QR Scanner will be implemented');
 }
 
 // Settings Sheet Functions
@@ -271,13 +355,122 @@ function createWallet() {
     }, 2000);
 }
 
+// Drawer Section Toggle Function
+function toggleSection(sectionName) {
+    const content = document.getElementById(sectionName + '-content');
+    const arrow = document.getElementById(sectionName + '-arrow');
+    
+    if (content.classList.contains('collapsed')) {
+        // Open this section
+        content.classList.remove('collapsed');
+        arrow.textContent = '▼';
+    } else {
+        // Close this section
+        content.classList.add('collapsed');
+        arrow.textContent = '▶';
+    }
+}
+
+// Initialize drawer sections
+function initDrawerSections() {
+    // Start with account and network sections open, settings closed
+    const accountContent = document.getElementById('account-content');
+    const networkContent = document.getElementById('network-content');
+    const settingsContent = document.getElementById('settings-content');
+    
+    if (accountContent) accountContent.classList.remove('collapsed');
+    if (networkContent) networkContent.classList.remove('collapsed');
+    if (settingsContent) settingsContent.classList.add('collapsed');
+}
+
+// Social Login Functions
+function loginWithGoogle() {
+    console.log('Login with Google');
+    showLoading();
+    
+    // Simulate OAuth flow
+    setTimeout(() => {
+        // In real app, this would handle Google OAuth
+        const mockEmail = 'user@gmail.com';
+        localStorage.setItem('userEmail', mockEmail);
+        localStorage.setItem('authMethod', 'google');
+        
+        // Create wallet for the user
+        createWalletForUser(mockEmail);
+    }, 1500);
+}
+
+function loginWithApple() {
+    console.log('Login with Apple');
+    showLoading();
+    
+    setTimeout(() => {
+        const mockEmail = 'user@icloud.com';
+        localStorage.setItem('userEmail', mockEmail);
+        localStorage.setItem('authMethod', 'apple');
+        
+        createWalletForUser(mockEmail);
+    }, 1500);
+}
+
+function loginWithTwitter() {
+    console.log('Login with X (Twitter)');
+    showLoading();
+    
+    setTimeout(() => {
+        const mockEmail = 'user@x.com';
+        localStorage.setItem('userEmail', mockEmail);
+        localStorage.setItem('authMethod', 'twitter');
+        
+        createWalletForUser(mockEmail);
+    }, 1500);
+}
+
+function loginWithFarcaster() {
+    console.log('Login with Farcaster');
+    showLoading();
+    
+    setTimeout(() => {
+        const mockEmail = 'user@farcaster.xyz';
+        localStorage.setItem('userEmail', mockEmail);
+        localStorage.setItem('authMethod', 'farcaster');
+        
+        createWalletForUser(mockEmail);
+    }, 1500);
+}
+
+function showEmailInput() {
+    // Navigate to email input page
+    window.location.href = 'pages/email-input.html';
+}
+
+function createWalletForUser(email) {
+    // Generate wallet address based on email
+    const walletAddress = '0x' + Math.random().toString(16).substr(2, 40);
+    
+    // Store user info
+    localStorage.setItem('walletAddress', walletAddress);
+    localStorage.setItem('walletType', 'social');
+    
+    // Navigate to main page
+    window.location.href = 'pages/main.html';
+}
+
 // Export functions for use in HTML
 window.goToImport = goToImport;
 window.goToCreate = goToCreate;
-window.toggleDropdown = toggleDropdown;
+window.toggleSection = toggleSection;
+window.openDrawer = openDrawer;
+window.closeDrawer = closeDrawer;
+window.openScanner = openScanner;
 window.openSettings = openSettings;
 window.closeSettings = closeSettings;
 window.goBack = goBack;
 window.goToMain = goToMain;
 window.importWallet = importWallet;
 window.createWallet = createWallet;
+window.loginWithGoogle = loginWithGoogle;
+window.loginWithApple = loginWithApple;
+window.loginWithTwitter = loginWithTwitter;
+window.loginWithFarcaster = loginWithFarcaster;
+window.showEmailInput = showEmailInput;

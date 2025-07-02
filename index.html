@@ -20,6 +20,9 @@
             <!-- Background Effects -->
             <div class="bg-circle circle-1"></div>
             <div class="bg-circle circle-2"></div>
+        
+        <!-- Cyber Grid Background -->
+        <div class="cyber-grid"></div>
 
             <!-- Logo -->
             <div class="logo-section">
@@ -40,12 +43,40 @@
 
             <!-- Bottom Actions -->
             <div class="bottom-section">
-                <button class="import-button" onclick="goToImport()">
-                    Import wallet
+                <div class="auth-title">[ AUTHENTICATION METHOD ]</div>
+                
+                <!-- Social Login Options -->
+                <div class="social-login-section">
+                    <button class="social-login-btn gmail" onclick="loginWithGoogle()">
+                        <span class="social-icon">G</span>
+                        <span>CONTINUE WITH GMAIL</span>
+                    </button>
+                    
+                    <button class="social-login-btn apple" onclick="loginWithApple()">
+                        <span class="social-icon">&#63743;</span>
+                        <span>CONTINUE WITH APPLE ID</span>
+                    </button>
+                    
+                    <button class="social-login-btn twitter" onclick="loginWithTwitter()">
+                        <span class="social-icon">X</span>
+                        <span>CONTINUE WITH X</span>
+                    </button>
+                    
+                    <button class="social-login-btn farcaster" onclick="loginWithFarcaster()">
+                        <span class="social-icon">FC</span>
+                        <span>CONTINUE WITH FARCASTER</span>
+                    </button>
+                </div>
+                
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+                
+                <!-- Email Input Option -->
+                <button class="email-input-btn" onclick="showEmailInput()">
+                    <span class="email-icon">@</span>
+                    <span>ENTER EMAIL MANUALLY</span>
                 </button>
-                <a href="#" class="create-link" onclick="goToCreate()">
-                    Create new wallet →
-                </a>
             </div>
         </div>
     </div>
