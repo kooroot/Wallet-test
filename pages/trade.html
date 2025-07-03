@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gauss Wallet - Trade</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <div class="header">
+            <button class="menu-btn" onclick="openDrawer()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="header-title">
+                <div class="logo-bar"></div>
+                <span>TRADE</span>
+            </div>
+            <div class="header-actions">
+                <button class="scan-btn" onclick="openScanner()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 7V3H7M13 3H17V7M17 13V17H13M7 17H3V13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content trade-content">
+            <!-- Current Balance Section -->
+            <div class="trade-balance-section">
+                <div class="balance-label">[AVAILABLE BALANCE]</div>
+                <div class="balance-amount">$12,345.67</div>
+                <div class="balance-crypto">2.5 ETH</div>
+            </div>
+
+            <!-- Trade Action Buttons -->
+            <div class="trade-actions">
+                <button class="trade-action-btn send">
+                    <span class="action-icon">↑</span>
+                    <span>SEND</span>
+                </button>
+                <button class="trade-action-btn receive">
+                    <span class="action-icon">↓</span>
+                    <span>RECEIVE</span>
+                </button>
+                <button class="trade-action-btn swap">
+                    <span class="action-icon">⇄</span>
+                    <span>SWAP</span>
+                </button>
+                <button class="trade-action-btn buy">
+                    <span class="action-icon">$</span>
+                    <span>BUY</span>
+                </button>
+            </div>
+
+            <!-- Quick Trade Section -->
+            <div class="quick-trade-section">
+                <h3 class="section-title">[QUICK TRADE]</h3>
+                <div class="trade-pairs">
+                    <div class="trade-pair">
+                        <div class="pair-info">
+                            <span class="pair-name">ETH/USDT</span>
+                            <span class="pair-price">$1,950.23</span>
+                        </div>
+                        <div class="pair-change positive">+2.4%</div>
+                    </div>
+                    <div class="trade-pair">
+                        <div class="pair-info">
+                            <span class="pair-name">BTC/USDT</span>
+                            <span class="pair-price">$30,123.45</span>
+                        </div>
+                        <div class="pair-change negative">-1.2%</div>
+                    </div>
+                    <div class="trade-pair">
+                        <div class="pair-info">
+                            <span class="pair-name">MATIC/USDT</span>
+                            <span class="pair-price">$0.85</span>
+                        </div>
+                        <div class="pair-change positive">+5.7%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Button -->
+        <button class="settings-btn" onclick="openSettings()">⚙</button>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-item" data-page="home">HOME</button>
+            <button class="nav-item active" data-page="trade">TRADE</button>
+            <button class="nav-item" data-page="dapp">DAPP</button>
+            <button class="nav-item" data-page="history">HISTORY</button>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>

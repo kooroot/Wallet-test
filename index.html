@@ -26,6 +26,32 @@
 
             <!-- Logo -->
             <div class="logo-section">
+                <!-- Gauss 17-gon Animation -->
+                <svg class="gauss-heptadecagon" width="200" height="200" viewBox="0 0 200 200">
+                    <defs>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <g class="heptadecagon-group" transform="translate(100, 100)">
+                        <!-- Construction circles -->
+                        <circle class="construction-circle" cx="0" cy="0" r="80" fill="none" stroke="var(--cyber-primary)" stroke-width="0.5" opacity="0.3"/>
+                        
+                        <!-- 17-gon polygon -->
+                        <polygon class="heptadecagon" points="" fill="none" stroke="var(--cyber-primary)" stroke-width="2" filter="url(#glow)"/>
+                        
+                        <!-- Vertices -->
+                        <g class="vertices"></g>
+                        
+                        <!-- Construction lines -->
+                        <g class="construction-lines"></g>
+                    </g>
+                </svg>
+                
                 <div class="logo">
                     <div class="logo-bar"></div>
                     <div class="logo-text">GAUSS</div>
@@ -82,5 +108,6 @@
     </div>
 
     <script src="js/app.js"></script>
+    <script src="js/gauss-heptadecagon.js"></script>
 </body>
 </html>

@@ -104,6 +104,79 @@ body {
     text-align: center;
     animation: glitchIn 1s ease-out;
     margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Gauss 17-gon Animation */
+.gauss-heptadecagon {
+    margin-bottom: 20px;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.heptadecagon-group {
+    transform-origin: center;
+}
+
+.construction-circle {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.heptadecagon {
+    animation: drawPath 3s ease-out forwards;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+
+@keyframes drawPath {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.vertices circle {
+    fill: var(--cyber-primary);
+    animation: fadeIn 0.3s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.construction-lines line {
+    stroke: var(--cyber-secondary);
+    stroke-width: 0.5;
+    opacity: 0;
+    animation: lineAppear 0.5s ease-out forwards;
+}
+
+@keyframes lineAppear {
+    to {
+        opacity: 0.3;
+    }
 }
 
 .logo {
@@ -643,7 +716,7 @@ body {
     border-bottom: none;
 }
 
-.drawer-section-header {
+button.drawer-section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -652,6 +725,11 @@ body {
     transition: all 0.2s ease;
     background: transparent;
     position: relative;
+    border: none;
+    width: 100%;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
 }
 
 .drawer-section-header::before {
@@ -1088,16 +1166,9 @@ body {
 }
 
 .action-icon {
-    width: 28px;
-    height: 28px;
-    border: 1px solid var(--cyber-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: var(--cyber-primary);
     font-weight: bold;
     font-size: 16px;
-    background: transparent;
 }
 
 /* Asset List */
@@ -1193,8 +1264,299 @@ body {
     color: var(--cyber-primary);
 }
 
-/* Settings Bottom Sheet */
-.settings-overlay {
+/* Portfolio Section Styles */
+.portfolio-section {
+    padding: 24px 16px;
+}
+
+.section-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cyber-text-dim);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.portfolio-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-item {
+    background: var(--cyber-border);
+    padding: 20px;
+    border: 1px solid rgba(0, 255, 183, 0.1);
+    border-radius: 4px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 11px;
+    color: var(--cyber-text-dim);
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.stat-value.positive {
+    color: var(--cyber-primary);
+}
+
+.stat-value.negative {
+    color: var(--cyber-accent);
+}
+
+/* Asset List Styles */
+.asset-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.asset-card {
+    background: transparent;
+    border: 1px solid var(--cyber-border);
+    padding: 20px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.asset-card:hover {
+    background: rgba(0, 255, 183, 0.02);
+    border-color: rgba(0, 255, 183, 0.3);
+    transform: translateY(-1px);
+}
+
+.asset-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.asset-identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.token-icon-wrapper {
+    position: relative;
+    width: 48px;
+    height: 48px;
+}
+
+.token-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.token-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.network-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--cyber-darker);
+    background-size: cover;
+}
+
+.network-badge.ethereum {
+    background: #627EEA;
+}
+
+.network-badge.polygon {
+    background: #8247E5;
+}
+
+.network-badge.bsc {
+    background: #F0B90B;
+}
+
+.network-badge.arbitrum {
+    background: #2D374B;
+}
+
+.asset-names h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cyber-text);
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.asset-names span {
+    font-size: 13px;
+    color: var(--cyber-text-dim);
+    opacity: 0.7;
+    margin-top: 4px;
+    display: block;
+}
+
+.asset-value {
+    text-align: right;
+}
+
+.asset-value h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cyber-primary);
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.asset-value span {
+    font-size: 13px;
+    color: var(--cyber-text-dim);
+    margin-top: 4px;
+    display: block;
+}
+
+/* Trade Page Styles */
+.trade-content {
+    padding-top: 20px;
+}
+
+.trade-balance-section {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 24px;
+    background: var(--cyber-border);
+    border: 1px solid rgba(0, 255, 183, 0.1);
+}
+
+.balance-crypto {
+    font-size: 14px;
+    color: var(--cyber-text-dim);
+    margin-top: 8px;
+}
+
+.trade-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 16px;
+    margin-bottom: 32px;
+}
+
+.trade-action-btn {
+    background: transparent;
+    border: 1px solid var(--cyber-primary);
+    color: var(--cyber-primary);
+    padding: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.trade-action-btn .action-icon {
+    font-size: 28px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.trade-action-btn:hover {
+    background: var(--cyber-primary);
+    color: var(--cyber-darker);
+    box-shadow: 0 0 20px rgba(0, 255, 183, 0.4);
+}
+
+.quick-trade-section {
+    padding: 0 16px;
+}
+
+.trade-pairs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trade-pair {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--cyber-border);
+    border: 1px solid rgba(0, 255, 183, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.trade-pair:hover {
+    border-color: var(--cyber-primary);
+    box-shadow: 0 0 10px rgba(0, 255, 183, 0.2);
+}
+
+.pair-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pair-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pair-price {
+    font-size: 12px;
+    color: var(--cyber-text-dim);
+}
+
+.pair-change {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pair-change.positive {
+    color: var(--cyber-primary);
+}
+
+.pair-change.negative {
+    color: var(--cyber-accent);
+}
+
+/* Bottom Sheets Base Styles */
+.settings-overlay,
+.account-overlay,
+.network-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -1207,12 +1569,16 @@ body {
     z-index: 200;
 }
 
-.settings-overlay.active {
+.settings-overlay.active,
+.account-overlay.active,
+.network-overlay.active {
     opacity: 1;
     visibility: visible;
 }
 
-.settings-sheet {
+.settings-sheet,
+.account-sheet,
+.network-sheet {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -1226,12 +1592,15 @@ body {
     z-index: 201;
 }
 
-.settings-overlay.active .settings-sheet {
+.settings-overlay.active .settings-sheet,
+.account-overlay.active .account-sheet,
+.network-overlay.active .network-sheet {
     transform: translateY(0);
     box-shadow: 0 -2px 20px rgba(0, 255, 183, 0.2);
 }
 
-.settings-header {
+.settings-header,
+.sheet-header {
     padding: 20px 16px;
     border-bottom: 1px solid var(--cyber-border);
     display: flex;
@@ -1239,7 +1608,8 @@ body {
     align-items: center;
 }
 
-.settings-title {
+.settings-title,
+.sheet-title {
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
@@ -1247,7 +1617,8 @@ body {
     color: var(--cyber-text);
 }
 
-.close-settings {
+.close-settings,
+.close-sheet {
     background: transparent;
     border: 1px solid var(--cyber-border);
     color: var(--cyber-primary);
@@ -1261,13 +1632,110 @@ body {
     transition: all 0.2s ease;
 }
 
-.close-settings:hover {
+.close-settings:hover,
+.close-sheet:hover {
     border-color: var(--cyber-primary);
     box-shadow: 0 0 10px rgba(0, 255, 183, 0.3);
 }
 
-.settings-content {
+.settings-content,
+.sheet-content {
     padding: 16px;
+}
+
+/* Account Sheet Specific Styles */
+.account-sheet .account-selector {
+    margin-bottom: 20px;
+}
+
+.account-sheet .current-account {
+    background: var(--cyber-border);
+    padding: 16px;
+    border: 1px solid var(--cyber-primary);
+    margin-bottom: 16px;
+}
+
+.account-sheet .account-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.account-sheet .account-item {
+    background: transparent;
+    border: 1px solid var(--cyber-border);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.account-sheet .account-item:hover {
+    border-color: var(--cyber-primary);
+    box-shadow: 0 0 10px rgba(0, 255, 183, 0.2);
+}
+
+/* Network Sheet Specific Styles */
+.network-sheet .network-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.network-sheet .network-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: transparent;
+    border: 1px solid var(--cyber-border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.network-sheet .network-item:hover {
+    border-color: var(--cyber-primary);
+    box-shadow: 0 0 10px rgba(0, 255, 183, 0.2);
+}
+
+.network-sheet .network-item.active {
+    border-color: var(--cyber-primary);
+    background: rgba(0, 255, 183, 0.1);
+}
+
+/* Sheet Action Buttons */
+.sheet-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sheet-action-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--cyber-primary);
+    color: var(--cyber-primary);
+    padding: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.sheet-action-btn:hover {
+    background: var(--cyber-primary);
+    color: var(--cyber-darker);
+    box-shadow: 0 0 20px rgba(0, 255, 183, 0.4);
 }
 
 .settings-section {

@@ -43,116 +43,25 @@
             <div class="drawer-content">
                 <!-- Account Section -->
                 <div class="drawer-section">
-                    <div class="drawer-section-header" onclick="toggleSection('account')">
+                    <button class="drawer-section-header" onclick="openAccountSheet()">
                         <h3 class="drawer-section-title">Account</h3>
-                        <span class="drawer-arrow" id="account-arrow">▼</span>
-                    </div>
-                    <div class="drawer-section-content" id="account-content">
-                        <div class="account-selector">
-                            <div class="current-account active">
-                                <div class="account-info">
-                                    <div class="account-avatar">1</div>
-                                    <div class="account-details">
-                                        <div class="account-name">Account 1</div>
-                                        <div class="account-address">0x1234...5678</div>
-                                    </div>
-                                </div>
-                                <div class="account-balance">2.5 ETH</div>
-                            </div>
-                            <div class="account-list">
-                                <div class="account-item">
-                                    <div class="account-info">
-                                        <div class="account-avatar">2</div>
-                                        <div class="account-details">
-                                            <div class="account-name">Account 2</div>
-                                            <div class="account-address">0x8765...4321</div>
-                                        </div>
-                                    </div>
-                                    <div class="account-balance">1.2 ETH</div>
-                                </div>
-                                <div class="account-item">
-                                    <div class="account-info">
-                                        <div class="account-avatar">3</div>
-                                        <div class="account-details">
-                                            <div class="account-name">Account 3</div>
-                                            <div class="account-address">0x9876...1234</div>
-                                        </div>
-                                    </div>
-                                    <div class="account-balance">0.5 ETH</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="drawer-actions">
-                            <button class="drawer-action-btn">
-                                <span>+</span> CREATE NEW ACCOUNT
-                            </button>
-                            <button class="drawer-action-btn">
-                                <span>↓</span> IMPORT WALLET
-                            </button>
-                        </div>
-                    </div>
+                        <span class="drawer-arrow">›</span>
+                    </button>
                 </div>
                 
                 <!-- Network Section -->
                 <div class="drawer-section">
-                    <div class="drawer-section-header" onclick="toggleSection('network')">
+                    <button class="drawer-section-header" onclick="openNetworkSheet()">
                         <h3 class="drawer-section-title">Network</h3>
-                        <span class="drawer-arrow" id="network-arrow">▼</span>
-                    </div>
-                    <div class="drawer-section-content" id="network-content">
-                        <div class="network-list">
-                            <div class="network-item active">
-                                <div class="network-icon" style="background: #627EEA;">ETH</div>
-                                <span>Ethereum</span>
-                                <div class="network-status">● Connected</div>
-                            </div>
-                            <div class="network-item">
-                                <div class="network-icon" style="background: #8247E5;">MATIC</div>
-                                <span>Polygon</span>
-                            </div>
-                            <div class="network-item">
-                                <div class="network-icon" style="background: #F0B90B;">BSC</div>
-                                <span>BSC</span>
-                            </div>
-                            <div class="network-item">
-                                <div class="network-icon" style="background: #2D374B;">ARB</div>
-                                <span>Arbitrum</span>
-                            </div>
-                        </div>
-                        <button class="drawer-action-btn">
-                            <span>+</span> ADD CUSTOM RPC
-                        </button>
-                    </div>
+                        <span class="drawer-arrow">›</span>
+                    </button>
                 </div>
                 
                 <!-- Settings Section -->
                 <div class="drawer-section">
-                    <div class="drawer-section-header" onclick="toggleSection('settings')">
+                    <button class="drawer-section-header" onclick="openSettings()">
                         <h3 class="drawer-section-title">Settings</h3>
-                        <span class="drawer-arrow" id="settings-arrow">▶</span>
-                    </div>
-                    <div class="drawer-section-content collapsed" id="settings-content">
-                        <div class="settings-list">
-                            <button class="settings-menu-item" onclick="openSettings()">
-                                <span>⚙</span> General Settings
-                            </button>
-                            <button class="settings-menu-item">
-                                <span>🔒</span> Security
-                            </button>
-                            <button class="settings-menu-item">
-                                <span>🔧</span> Advanced
-                            </button>
-                            <button class="settings-menu-item">
-                                <span>ℹ️</span> About
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Settings Link -->
-                <div class="drawer-footer">
-                    <button class="drawer-settings" onclick="openSettings()">
-                        <span>⚙</span> Settings
+                        <span class="drawer-arrow">›</span>
                     </button>
                 </div>
             </div>
@@ -167,65 +76,150 @@
                 <div class="balance-usd">≈ ₩16,549,200</div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <button class="action-btn">
-                    <div class="action-icon">↑</div>
-                    SEND
-                </button>
-                <button class="action-btn">
-                    <div class="action-icon">↓</div>
-                    RECEIVE
-                </button>
-                <button class="action-btn">
-                    <div class="action-icon">⇄</div>
-                    SWAP
-                </button>
-                <button class="action-btn">
-                    <div class="action-icon">$</div>
-                    BUY
-                </button>
-            </div>
+            <!-- Portfolio Overview -->
+            <div class="portfolio-section">
+                <h3 class="section-title">[PORTFOLIO OVERVIEW]</h3>
+                
+                <!-- Portfolio Stats -->
+                <div class="portfolio-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">24H CHANGE</span>
+                        <span class="stat-value positive">+$234.56 (+1.9%)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">TOTAL ASSETS</span>
+                        <span class="stat-value">8</span>
+                    </div>
+                </div>
 
-            <!-- Asset List -->
-            <div class="asset-list">
-                <div class="asset-item">
-                    <div class="asset-info">
-                        <div class="asset-icon">ETH</div>
-                        <div class="asset-details">
-                            <h4>Ethereum</h4>
-                            <p>ETH</p>
+                <!-- Asset List -->
+                <div class="asset-list">
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-identity">
+                                <div class="token-icon-wrapper">
+                                    <div class="token-icon" style="background: #627EEA;">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="white">
+                                            <path d="M8 0L2 9L8 12L14 9L8 0Z M8 16L2 10L8 13L14 10L8 16Z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="network-badge ethereum"></div>
+                                </div>
+                                <div class="asset-names">
+                                    <h4>ETH</h4>
+                                    <span>Ethereum</span>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <h4>$4,875.00</h4>
+                                <span>2.5 ETH</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="asset-value">
-                        <div class="asset-balance">2.5 ETH</div>
-                        <div class="asset-usd">$4,875.00</div>
-                    </div>
-                </div>
-                <div class="asset-item">
-                    <div class="asset-info">
-                        <div class="asset-icon">USDT</div>
-                        <div class="asset-details">
-                            <h4>Tether</h4>
-                            <p>USDT</p>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-identity">
+                                <div class="token-icon-wrapper">
+                                    <div class="token-icon" style="background: #26A17B;">
+                                        <span>₮</span>
+                                    </div>
+                                    <div class="network-badge ethereum"></div>
+                                </div>
+                                <div class="asset-names">
+                                    <h4>USDT</h4>
+                                    <span>Ethereum</span>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <h4>$5,000.00</h4>
+                                <span>5,000 USDT</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="asset-value">
-                        <div class="asset-balance">5,000 USDT</div>
-                        <div class="asset-usd">$5,000.00</div>
-                    </div>
-                </div>
-                <div class="asset-item">
-                    <div class="asset-info">
-                        <div class="asset-icon">MATIC</div>
-                        <div class="asset-details">
-                            <h4>Polygon</h4>
-                            <p>MATIC</p>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-identity">
+                                <div class="token-icon-wrapper">
+                                    <div class="token-icon" style="background: #8247E5;">
+                                        <span>M</span>
+                                    </div>
+                                    <div class="network-badge polygon"></div>
+                                </div>
+                                <div class="asset-names">
+                                    <h4>MATIC</h4>
+                                    <span>Polygon</span>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <h4>$850.00</h4>
+                                <span>1,000 MATIC</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="asset-value">
-                        <div class="asset-balance">1,000 MATIC</div>
-                        <div class="asset-usd">$850.00</div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-identity">
+                                <div class="token-icon-wrapper">
+                                    <div class="token-icon" style="background: #F0B90B;">
+                                        <span>B</span>
+                                    </div>
+                                    <div class="network-badge bsc"></div>
+                                </div>
+                                <div class="asset-names">
+                                    <h4>BNB</h4>
+                                    <span>BSC</span>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <h4>$490.00</h4>
+                                <span>2 BNB</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-identity">
+                                <div class="token-icon-wrapper">
+                                    <div class="token-icon" style="background: #2D374B;">
+                                        <span>A</span>
+                                    </div>
+                                    <div class="network-badge arbitrum"></div>
+                                </div>
+                                <div class="asset-names">
+                                    <h4>ARB</h4>
+                                    <span>Arbitrum</span>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <h4>$575.00</h4>
+                                <span>500 ARB</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-identity">
+                                <div class="token-icon-wrapper">
+                                    <div class="token-icon" style="background: #26A17B;">
+                                        <span>₮</span>
+                                    </div>
+                                    <div class="network-badge polygon"></div>
+                                </div>
+                                <div class="asset-names">
+                                    <h4>USDT</h4>
+                                    <span>Polygon</span>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <h4>$1,200.00</h4>
+                                <span>1,200 USDT</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -236,10 +230,98 @@
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <button class="nav-item active">WALLET</button>
-            <button class="nav-item">DAPP</button>
-            <button class="nav-item">ACTIVITY</button>
-            <button class="nav-item">NFT</button>
+            <button class="nav-item active" data-page="home">HOME</button>
+            <button class="nav-item" data-page="trade">TRADE</button>
+            <button class="nav-item" data-page="dapp">DAPP</button>
+            <button class="nav-item" data-page="history">HISTORY</button>
+        </div>
+
+        <!-- Account Bottom Sheet -->
+        <div class="account-overlay" id="accountOverlay" onclick="closeAccountSheet()">
+            <div class="account-sheet" onclick="event.stopPropagation()">
+                <div class="sheet-header">
+                    <h2 class="sheet-title">Account</h2>
+                    <button class="close-sheet" onclick="closeAccountSheet()">×</button>
+                </div>
+                <div class="sheet-content">
+                    <div class="account-selector">
+                        <div class="current-account active">
+                            <div class="account-info">
+                                <div class="account-avatar">1</div>
+                                <div class="account-details">
+                                    <div class="account-name">Account 1</div>
+                                    <div class="account-address">0x1234...5678</div>
+                                </div>
+                            </div>
+                            <div class="account-balance">2.5 ETH</div>
+                        </div>
+                        <div class="account-list">
+                            <div class="account-item">
+                                <div class="account-info">
+                                    <div class="account-avatar">2</div>
+                                    <div class="account-details">
+                                        <div class="account-name">Account 2</div>
+                                        <div class="account-address">0x8765...4321</div>
+                                    </div>
+                                </div>
+                                <div class="account-balance">1.2 ETH</div>
+                            </div>
+                            <div class="account-item">
+                                <div class="account-info">
+                                    <div class="account-avatar">3</div>
+                                    <div class="account-details">
+                                        <div class="account-name">Account 3</div>
+                                        <div class="account-address">0x9876...1234</div>
+                                    </div>
+                                </div>
+                                <div class="account-balance">0.5 ETH</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sheet-actions">
+                        <button class="sheet-action-btn">
+                            <span>+</span> CREATE NEW ACCOUNT
+                        </button>
+                        <button class="sheet-action-btn">
+                            <span>↓</span> IMPORT WALLET
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Bottom Sheet -->
+        <div class="network-overlay" id="networkOverlay" onclick="closeNetworkSheet()">
+            <div class="network-sheet" onclick="event.stopPropagation()">
+                <div class="sheet-header">
+                    <h2 class="sheet-title">Network</h2>
+                    <button class="close-sheet" onclick="closeNetworkSheet()">×</button>
+                </div>
+                <div class="sheet-content">
+                    <div class="network-list">
+                        <div class="network-item active">
+                            <div class="network-icon" style="background: #627EEA;">ETH</div>
+                            <span>Ethereum</span>
+                            <div class="network-status">● Connected</div>
+                        </div>
+                        <div class="network-item">
+                            <div class="network-icon" style="background: #8247E5;">MATIC</div>
+                            <span>Polygon</span>
+                        </div>
+                        <div class="network-item">
+                            <div class="network-icon" style="background: #F0B90B;">BSC</div>
+                            <span>BSC</span>
+                        </div>
+                        <div class="network-item">
+                            <div class="network-icon" style="background: #2D374B;">ARB</div>
+                            <span>Arbitrum</span>
+                        </div>
+                    </div>
+                    <button class="sheet-action-btn">
+                        <span>+</span> ADD CUSTOM RPC
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Settings Bottom Sheet -->

@@ -20,6 +20,9 @@ function initializeApp() {
         case 'main.html':
             initMainPage();
             break;
+        case 'trade.html':
+            initTradePage();
+            break;
         case 'import.html':
             initImportPage();
             break;
@@ -58,6 +61,9 @@ function initMainPage() {
     
     // Initialize settings sheet
     initSettingsSheet();
+    
+    // Initialize bottom sheets (account and network)
+    initBottomSheets();
     
     // Initialize bottom navigation
     initBottomNav();
@@ -247,6 +253,32 @@ function initCreatePage() {
     // Similar to import page initialization
 }
 
+// Trade Page Functions
+function initTradePage() {
+    // Initialize bottom navigation
+    initBottomNav();
+    
+    // Initialize trade actions
+    const tradeButtons = document.querySelectorAll('.trade-action-btn');
+    tradeButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.querySelector('span').textContent;
+            console.log('Trade action:', action);
+            // Add trade action logic here
+        });
+    });
+    
+    // Initialize trade pairs
+    const tradePairs = document.querySelectorAll('.trade-pair');
+    tradePairs.forEach(pair => {
+        pair.addEventListener('click', function() {
+            const pairName = this.querySelector('.pair-name').textContent;
+            console.log('Selected pair:', pairName);
+            // Add trade pair selection logic here
+        });
+    });
+}
+
 // Bottom Navigation
 function initBottomNav() {
     const navItems = document.querySelectorAll('.nav-item');
@@ -259,11 +291,35 @@ function initBottomNav() {
             this.classList.add('active');
             
             // Handle navigation
-            const page = this.textContent.trim();
-            console.log('Navigate to:', page);
-            // Add navigation logic here
+            const page = this.getAttribute('data-page');
+            navigateToPage(page);
         });
     });
+}
+
+// Navigation function
+function navigateToPage(page) {
+    const currentPath = window.location.pathname;
+    const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+    
+    switch(page) {
+        case 'home':
+            window.location.href = basePath + '/main.html';
+            break;
+        case 'trade':
+            window.location.href = basePath + '/trade.html';
+            break;
+        case 'dapp':
+            // Placeholder for DApp page
+            console.log('Navigate to DApp page');
+            alert('DApp page coming soon!');
+            break;
+        case 'history':
+            // Placeholder for History page
+            console.log('Navigate to History page');
+            alert('History page coming soon!');
+            break;
+    }
 }
 
 // Utility Functions
@@ -373,14 +429,7 @@ function toggleSection(sectionName) {
 
 // Initialize drawer sections
 function initDrawerSections() {
-    // Start with account and network sections open, settings closed
-    const accountContent = document.getElementById('account-content');
-    const networkContent = document.getElementById('network-content');
-    const settingsContent = document.getElementById('settings-content');
-    
-    if (accountContent) accountContent.classList.remove('collapsed');
-    if (networkContent) networkContent.classList.remove('collapsed');
-    if (settingsContent) settingsContent.classList.add('collapsed');
+    // No longer needed since we're using bottom sheets for all sections
 }
 
 // Social Login Functions
@@ -456,6 +505,76 @@ function createWalletForUser(email) {
     window.location.href = 'pages/main.html';
 }
 
+// Account Sheet Functions
+function openAccountSheet() {
+    const overlay = document.getElementById('accountOverlay');
+    if (overlay) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        closeDrawer(); // Close drawer when opening sheet
+    }
+}
+
+function closeAccountSheet() {
+    const overlay = document.getElementById('accountOverlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Network Sheet Functions
+function openNetworkSheet() {
+    const overlay = document.getElementById('networkOverlay');
+    if (overlay) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        closeDrawer(); // Close drawer when opening sheet
+    }
+}
+
+function closeNetworkSheet() {
+    const overlay = document.getElementById('networkOverlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Initialize bottom sheet touch gestures
+function initBottomSheets() {
+    const sheets = document.querySelectorAll('.account-sheet, .network-sheet');
+    
+    sheets.forEach(sheet => {
+        let startY = 0;
+        let currentY = 0;
+        
+        sheet.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+        });
+        
+        sheet.addEventListener('touchmove', (e) => {
+            currentY = e.touches[0].clientY;
+            const deltaY = currentY - startY;
+            
+            if (deltaY > 0) {
+                sheet.style.transform = `translateY(${deltaY}px)`;
+            }
+        });
+        
+        sheet.addEventListener('touchend', () => {
+            const deltaY = currentY - startY;
+            
+            if (deltaY > 100) {
+                const sheetType = sheet.classList.contains('account-sheet') ? 'Account' : 'Network';
+                window[`close${sheetType}Sheet`]();
+            }
+            
+            sheet.style.transform = '';
+        });
+    });
+}
+
 // Export functions for use in HTML
 window.goToImport = goToImport;
 window.goToCreate = goToCreate;
@@ -465,6 +584,10 @@ window.closeDrawer = closeDrawer;
 window.openScanner = openScanner;
 window.openSettings = openSettings;
 window.closeSettings = closeSettings;
+window.openAccountSheet = openAccountSheet;
+window.closeAccountSheet = closeAccountSheet;
+window.openNetworkSheet = openNetworkSheet;
+window.closeNetworkSheet = closeNetworkSheet;
 window.goBack = goBack;
 window.goToMain = goToMain;
 window.importWallet = importWallet;
