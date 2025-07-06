@@ -494,15 +494,11 @@ function showEmailInput() {
 }
 
 function createWalletForUser(email) {
-    // Generate wallet address based on email
-    const walletAddress = '0x' + Math.random().toString(16).substr(2, 40);
+    // Store user email for wallet creation
+    localStorage.setItem('userEmail', email);
     
-    // Store user info
-    localStorage.setItem('walletAddress', walletAddress);
-    localStorage.setItem('walletType', 'social');
-    
-    // Navigate to main page
-    window.location.href = 'pages/main.html';
+    // Navigate to wallet setup page
+    window.location.href = 'pages/wallet-setup.html';
 }
 
 // Account Sheet Functions
@@ -597,3 +593,20 @@ window.loginWithApple = loginWithApple;
 window.loginWithTwitter = loginWithTwitter;
 window.loginWithFarcaster = loginWithFarcaster;
 window.showEmailInput = showEmailInput;
+window.goToCreateWallet = goToCreateWallet;
+window.goToImportWallet = goToImportWallet;
+
+// Wallet Setup Functions
+function goToCreateWallet() {
+    showLoading();
+    setTimeout(() => {
+        window.location.href = 'create-wallet.html';
+    }, 500);
+}
+
+function goToImportWallet() {
+    showLoading();
+    setTimeout(() => {
+        window.location.href = 'import-wallet.html';
+    }, 500);
+}

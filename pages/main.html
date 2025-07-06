@@ -401,5 +401,17 @@
     </div>
 
     <script src="../js/app.js"></script>
+    <script>
+        // Check if wallet exists
+        document.addEventListener('DOMContentLoaded', () => {
+            const walletSetup = localStorage.getItem('walletSetup');
+            const walletData = localStorage.getItem('walletData');
+            
+            if (!walletSetup || !walletData) {
+                // No wallet found, redirect to wallet setup
+                window.location.href = 'wallet-setup.html';
+            }
+        });
+    </script>
 </body>
 </html>

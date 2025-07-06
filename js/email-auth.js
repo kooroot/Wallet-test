@@ -130,9 +130,9 @@ function handleCodeInput(event) {
             localStorage.setItem('userEmail', userEmail);
             localStorage.setItem('authMethod', 'email');
             
-            // Navigate to PIN setup
+            // Navigate to wallet setup
             setTimeout(() => {
-                window.location.href = 'pin-setup.html';
+                window.location.href = 'wallet-setup.html';
             }, 500);
         } else {
             // Error
